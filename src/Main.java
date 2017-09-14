@@ -1,14 +1,10 @@
-package com.company;
-
+import gui.GameFrame;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import controller.Controller;
 import javafx.stage.Stage;
+import model.GameLogic;
 
-public class Main extends Application {
+public class Main extends Application{
 
     public static void main(String[] args) {
         launch(args);
@@ -16,17 +12,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Button button = new Button("test");
-        Text text = new Text(10, 20, "Hellow World!");
-        text.setFont(new Font(30));
+        GameLogic gameLogic = new GameLogic();
+        Controller controller = new Controller(gameLogic);
+        GameFrame gameFrame = new GameFrame(controller);
 
-        BorderPane pane = new BorderPane();
-        pane.setCenter(button);
-        pane.setTop(text);
-
-        Scene scene = new Scene(pane, 400, 400);
-        primaryStage.setTitle("Hi, JavaFX!");
-        primaryStage.setScene(scene);
+        gameFrame.setStage(primaryStage);
+        primaryStage.setScene(gameFrame.getScene());
         primaryStage.show();
     }
 }
