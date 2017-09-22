@@ -4,6 +4,7 @@ import listeners.Observable;
 import listeners.Observer;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GameLogic implements Observable {
@@ -11,16 +12,37 @@ public class GameLogic implements Observable {
     private double gameFieldHeight;
     private CharacterModel characterModel;
     private List<BulletModel> flyingBullets;
+    private List<EnemyModel> enemyWave;
     private Observer observer;
 
     public GameLogic() {
         characterModel = new CharacterModel();
         flyingBullets = new ArrayList<BulletModel>();
+        enemyWave = new LinkedList<EnemyModel>();
     }
 
     @Override
     public void setObserver(Observer observer) {
         this.observer = observer;
+    }
+
+    public void createEnemy() {
+        int rowNumber = selectRow();
+        EnemyModel enemyModel = new EnemyModel();
+        enemyModel.setCoordinateX(gameFieldWidth);
+        enemyModel.setCoordinateY(64 * rowNumber);
+        enemyWave.add(enemyModel);
+        observer.addMovingEnemy(enemyModel.getCoordinateX(), enemyModel.getCoordinateY());
+    }
+
+    private int selectRow() {
+        return (int) (Math.random() * 10);
+    }
+
+    public void enemyMove(int enemyIndex) {
+        EnemyModel enemyModel = enemyWave.get(enemyIndex);
+        enemyModel.setCoordinateX(enemyModel.getCoordinateX() - 10);
+        observer.changeEnemyPosition(enemyModel.getCoordinateX(), enemyIndex);
     }
 
     public void bunnyMovement(int step) {
@@ -38,7 +60,7 @@ public class GameLogic implements Observable {
         bullet.setCoordinateX(startX);
         bullet.setCoordinateY(startY);
         flyingBullets.add(bullet);
-        observer.addTracingBulletView(startX, startY);
+        observer.addTracingBullet(startX, startY);
     }
 
     public void bulletTracing(int bulletIndex) {

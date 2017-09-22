@@ -1,12 +1,8 @@
 package model;
 
-public class BulletModel {
+public class EnemyModel {
     private double coordinateX;
     private double coordinateY;
-
-    public BulletModel() {
-
-    }
 
     public double getCoordinateX() {
         return coordinateX;
@@ -14,6 +10,10 @@ public class BulletModel {
 
     public void setCoordinateX(double coordinateX) {
         this.coordinateX = coordinateX;
+    }
+
+    public double getCoordinateY() {
+        return coordinateY;
     }
 
     public void setCoordinateY(double coordinateY) {

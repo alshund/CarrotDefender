@@ -3,8 +3,8 @@ package gui;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -12,8 +12,6 @@ import controller.Controller;
 import listeners.Observable;
 import listeners.Observer;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,11 +34,12 @@ public class GameField implements Observer {
 
     private Stage stage;
     private Scene gameScene;
-    private BorderPane gamePane;
+    private StackPane gamePane;
 
     private CharacterView characterView;
 
     private List<BulletView> tracingBulletViews = new LinkedList<>();
+    private List<EnemyView> enemyWave = new LinkedList<>();
 
     private Controller controller;
     private Observable observable;
@@ -52,8 +51,8 @@ public class GameField implements Observer {
         observable.setObserver(this);
 
         characterView = new CharacterView();
-        gamePane = new BorderPane();
-        gamePane.setLeft(characterView.getPane());
+        gamePane = new StackPane();
+        gamePane.getChildren().add(characterView.getPane());
         gameScene = new Scene(gamePane, 1080, 640);
 
         controller.setGameFieldDimension(gamePane.getWidth(), gamePane.getHeight());
@@ -82,6 +81,8 @@ public class GameField implements Observer {
                 controller.bunnyMovement(-8);
             } else if (event.getCode() == KeyCode.SPACE) {
                 controller.attack();
+            } else if (event.getCode() == KeyCode.ENTER) {
+                controller.createEnemy();
             }
         });
     }
@@ -98,7 +99,7 @@ public class GameField implements Observer {
     }
 
     @Override
-    public void addTracingBulletView(double coordinateX, double coordinateY) {
+    public void addTracingBullet(double coordinateX, double coordinateY) {
         int bulletIndex = addBulletView(coordinateX, coordinateY);
         addBulletTracing(bulletIndex);
     }
@@ -108,6 +109,45 @@ public class GameField implements Observer {
         tracingBulletViews.get(bulletIndex).getTracingAnimation().stop();
         gamePane.getChildren().remove(tracingBulletViews.get(bulletIndex).getPane());
         tracingBulletViews.remove(bulletIndex);
+    }
+
+    @Override
+    public void addMovingEnemy(double coordinateX, double coordinateY) {
+        int index = addEnemyView(coordinateX, coordinateY);
+        addEnemyMoving(index);
+    }
+
+    @Override
+    public void removeMovingEnemy(int enemyIndex) {
+
+    }
+
+    @Override
+    public void changeEnemyPosition(double coordinateX, int enemyIndex) {
+        EnemyView enemyView = enemyWave.get(enemyIndex);
+        enemyView.setCoordinateX(coordinateX);
+    }
+
+    private int addEnemyView(double coordinateX, double coordinateY) {
+        EnemyView enemyView = new EnemyView();
+        gamePane.getChildren().add(enemyView.getEnemyPane());
+        enemyView.setCoordinateX(coordinateX);
+        enemyView.setCoordinateY(coordinateY);
+        enemyWave.add(enemyView);
+        return enemyWave.indexOf(enemyView);
+    }
+
+    private void addEnemyMoving(int enemyIndex) {
+        EnemyView enemyView = enemyWave.get(enemyIndex);
+        enemyView.setMoveAnimation(new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                int enemyIndex = enemyWave.indexOf(enemyView);
+                controller.enemyMove(enemyIndex);
+
+            }
+        });
+        enemyView.getMoveAnimation().start();
     }
 
     private int addBulletView(double coordinateX, double coordinateY) {

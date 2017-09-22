@@ -1,6 +1,5 @@
 package controller;
 
-import listeners.Observer;
 import model.GameLogic;
 
 public class Controller {
@@ -8,6 +7,14 @@ public class Controller {
 
     public Controller(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
+    }
+
+    public void createEnemy() {
+        gameLogic.createEnemy();
+    }
+
+    public void enemyMove(int enemyIndex) {
+        gameLogic.enemyMove(enemyIndex);
     }
 
     public void bunnyMovement(int step) {
