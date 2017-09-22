@@ -10,29 +10,37 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class Character extends Thread {
-    private BorderPane characterPane;
+public class CharacterView {
+    private Pane characterPane;
     private Rectangle rectangle;
 
-    public Character() {
+    public CharacterView() {
         rectangle = new Rectangle(64, 64,  Color.BLACK);
         characterPane = new BorderPane();
         characterPane.getChildren().add(rectangle);
     }
 
-    public BorderPane getPane() {
+    public Pane getPane() {
         return characterPane;
     }
 
-    public void setPane(BorderPane characterPane) {
-        this.characterPane = characterPane;
+    public double getWidth() {
+        return rectangle.getWidth();
     }
 
-    public Point2D getCharacterPosition() {
-        return new Point2D(characterPane.getTranslateX(), characterPane.getTranslateY());
+    public double getHeight() {
+        return rectangle.getHeight();
     }
 
-    public Dimension2D getCharacterDimension() {
-        return new Dimension2D(rectangle.getWidth(), rectangle.getHeight());
+    public double getCoordinateX() {
+        return characterPane.getTranslateX();
+    }
+
+    public void setCoordinateY(double coordinateY) {
+        characterPane.setTranslateY(coordinateY);
+    }
+
+    public double getCoordinateY() {
+        return characterPane.getTranslateY();
     }
 }

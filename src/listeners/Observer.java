@@ -3,5 +3,8 @@ package listeners;
 import javafx.geometry.Point2D;
 
 public interface Observer {
-    Point2D move(int step);
+    void changeCharacterPosition(double step);
+    void addTracingBulletView(double coordinateX, double coordinateY);
+    void removeTracingBullet(int bulletIndex);
+    void changeBulletPosition(double coordinateX, int bulletIndex);
 }

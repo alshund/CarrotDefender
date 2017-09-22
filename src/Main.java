@@ -1,4 +1,4 @@
-import gui.GameFrame;
+import gui.GameField;
 import javafx.application.Application;
 import controller.Controller;
 import javafx.stage.Stage;
@@ -14,10 +14,10 @@ public class Main extends Application{
     public void start(Stage primaryStage) throws Exception {
         GameLogic gameLogic = new GameLogic();
         Controller controller = new Controller(gameLogic);
-        GameFrame gameFrame = new GameFrame(controller);
+        GameField gameField = new GameField(controller);
 
-        gameFrame.setStage(primaryStage);
-        primaryStage.setScene(gameFrame.getScene());
+        gameField.setStage(primaryStage);
+        primaryStage.setScene(gameField.getScene());
         primaryStage.show();
     }
 }
