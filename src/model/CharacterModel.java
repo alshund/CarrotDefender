@@ -7,6 +7,13 @@ public class CharacterModel {
     private double coordinateY;
     private Weapon weapon;
 
+    public CharacterModel(double width, double height, double coordinateX, double coordinateY) {
+        this.width = width;
+        this.height = height;
+        this.coordinateX = coordinateX;
+        this.coordinateY = coordinateY;
+    }
+
     public CharacterModel() {
         weapon = new Pistol();
     }

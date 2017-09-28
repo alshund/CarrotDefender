@@ -11,11 +11,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class CharacterView {
+    public static final int WIDTH = 64;
+    public static final int HEIGHT = 64;
+
     private Pane characterPane;
     private Rectangle rectangle;
 
     public CharacterView() {
-        rectangle = new Rectangle(64, 64,  Color.BLACK);
+        rectangle = new Rectangle(WIDTH, HEIGHT,  Color.BLACK);
         characterPane = new BorderPane();
         characterPane.getChildren().add(rectangle);
     }

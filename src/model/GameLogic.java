@@ -3,7 +3,6 @@ package model;
 import listeners.Observable;
 import listeners.Observer;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,8 +16,8 @@ public class GameLogic implements Observable {
 
     public GameLogic() {
         characterModel = new CharacterModel();
-        flyingBullets = new ArrayList<BulletModel>();
-        enemyWave = new LinkedList<EnemyModel>();
+        flyingBullets = new LinkedList<>();
+        enemyWave = new LinkedList<>();
     }
 
     @Override
