@@ -1,11 +1,13 @@
 package present.activities.impl;
 
-import present.command.KeyboardCommand;
-import present.command.KeyboardDirector;
-import javafx.scene.layout.*;
-import present.activities.Activity;
 import controller.Controller;
 import javafx.scene.Scene;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import present.activities.Activity;
+import present.command.KeyboardCommand;
+import present.command.KeyboardDirector;
 import present.objectDesigns.Protagonist;
 
 public class GameField implements Activity {
@@ -22,29 +24,19 @@ public class GameField implements Activity {
 
     private KeyboardDirector keyboardDirector = new KeyboardDirector();
 
-    private Protagonist protagonist;
+    private Protagonist protagonist = new Protagonist();
 
     private Controller controller;
 
     public GameField(Controller controller) {
 
         this.controller = controller;
-        gridPane = new GridPane();
-        protagonist = new Protagonist();
-
         addColumns(columns);
         addRows(rows);
-
-
-        gridPane.add(protagonist.getImageViewPane(), 0, 0);
-
-
-        gridPane.setGridLinesVisible(true);
+        gridPane.getChildren().add(protagonist.getImageViewPane());
         scene = new Scene(gridPane, WIDTH, HEIGHT);
-        scene.setOnKeyPressed(event -> {
-            KeyboardCommand keyboardCommand = keyboardDirector.getKeyboardCommand(event.getCode());
-            keyboardCommand.executed(protagonist);
-        });
+        protagonist.playFlightSprite();
+        addCommandsListener();
     }
 
     private void addColumns(double...percentWidths) {
@@ -63,6 +55,14 @@ public class GameField implements Activity {
             rowConstraints.setPercentHeight(percentHeight);
             gridPane.getRowConstraints().add(rowConstraints);
         }
+    }
+
+    private void addCommandsListener() {
+
+        scene.setOnKeyPressed(event -> {
+            KeyboardCommand keyboardCommand = keyboardDirector.getKeyboardCommand(event.getCode());
+            keyboardCommand.executed(protagonist);
+        });
     }
 
     public Scene getScene() {

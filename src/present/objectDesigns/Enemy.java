@@ -44,7 +44,7 @@ public class Enemy {
 //
 //    private final int HEIGHT = 312;
 //
-//    private Animation spriteAnimation;
+//    private Sprite spriteAnimation;
 
 //    public void startAnimation() {
 //        imageView.setViewport(new Rectangle2D(OFFSET_X, OFFSET_Y, WIDTH, HEIGHT));
@@ -55,7 +55,7 @@ public class Enemy {
 //                OFFSET_X, OFFSET_Y,
 //                WIDTH, HEIGHT
 //        );
-//        spriteAnimation.setCycleCount(Animation.INDEFINITE);
+//        spriteAnimation.setCycleCount(Sprite.INDEFINITE);
 //        spriteAnimation.play();
 //    }
 //

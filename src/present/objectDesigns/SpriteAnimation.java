@@ -12,17 +12,11 @@ public class SpriteAnimation extends Transition {
     private final ImageView imageView;
 
     private final int count;
-
     private final int columns;
-
     private final int offsetX;
-
     private final int offsetY;
-
     private final int width;
-
     private final int height;
-
     private int lastIndex;
 
     public SpriteAnimation(ImageView imageView, Duration duration, int count, int columns, int offsetX, int offsetY, int width, int height) {
@@ -39,6 +33,7 @@ public class SpriteAnimation extends Transition {
 
     @Override
     protected void interpolate(double frac) {
+        System.out.println(getStatus().name() + " " + count);
         final int index = Math.min((int) Math.floor(frac * count), count - 1);
         if (index != lastIndex) {
             final int x = (index % columns) * width  + offsetX;

@@ -6,10 +6,23 @@ import present.ImageViewPane;
 
 public class Protagonist {
     private ImageViewPane imageViewPane;
+    private Sprite flightSprite;
+    private Sprite attackSprite;
 
     public Protagonist() {
-        Image image = new Image(Protagonist.class.getResourceAsStream("/design/protagonist/Plane/Fly (1).png"));
-        imageViewPane = new ImageViewPane(new ImageView(image));
+        Image image = new Image(Protagonist.class.getResourceAsStream("/design/protagonist/Plane/plane.png"));
+        ImageView imageView = new ImageView(image);
+        flightSprite = new FlightSprite(imageView);
+        attackSprite = new AttackSprite(imageView);
+        imageViewPane = new ImageViewPane(imageView);
+    }
+
+    public void playFlightSprite() {
+        flightSprite.play();
+    }
+
+    public void playAttackSprite() {
+        attackSprite.play();
     }
 
     public ImageViewPane getImageViewPane() {

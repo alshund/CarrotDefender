@@ -7,6 +7,7 @@ public class SpaceManager implements KeyboardCommand {
 
     @Override
     public void executed(Protagonist protagonist) {
+        protagonist.playAttackSprite();
 
     }
 }
