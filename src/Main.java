@@ -1,8 +1,8 @@
-import gui.GameField;
-import javafx.application.Application;
 import controller.Controller;
+import javafx.application.Application;
 import javafx.stage.Stage;
 import model.GameLogic;
+import present.activities.impl.GameField;
 
 public class Main extends Application{
 
@@ -15,8 +15,6 @@ public class Main extends Application{
         GameLogic gameLogic = new GameLogic();
         Controller controller = new Controller(gameLogic);
         GameField gameField = new GameField(controller);
-
-        gameField.setStage(primaryStage);
         primaryStage.setScene(gameField.getScene());
         primaryStage.show();
     }
